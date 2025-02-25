@@ -1,24 +1,14 @@
 ﻿using Localization.Resources.AbpUi;
 using X.Admin.Core.Localization;
-using Volo.Abp.Account;
-using Volo.Abp.SettingManagement;
-using Volo.Abp.FeatureManagement;
-using Volo.Abp.Identity;
 using Volo.Abp.Modularity;
-using Volo.Abp.PermissionManagement.HttpApi;
 using Volo.Abp.Localization;
-using Volo.Abp.TenantManagement;
+using X.Admin.BasicService;
 
 namespace X.Admin.Core;
 
- [DependsOn(
+[DependsOn(
     typeof(CoreApplicationContractsModule),
-    typeof(AbpPermissionManagementHttpApiModule),
-    typeof(AbpSettingManagementHttpApiModule),
-    typeof(AbpAccountHttpApiModule),
-    typeof(AbpIdentityHttpApiModule),
-    typeof(AbpTenantManagementHttpApiModule),
-    typeof(AbpFeatureManagementHttpApiModule)
+    typeof(BasicServiceHttpApiModule)
     )]
 public class CoreHttpApiModule : AbpModule
 {

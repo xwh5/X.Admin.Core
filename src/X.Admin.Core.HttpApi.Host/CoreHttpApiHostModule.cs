@@ -13,6 +13,10 @@ using Volo.Abp.AspNetCore.Serilog;
 using Volo.Abp.Swashbuckle;
 using Volo.Abp.Caching.StackExchangeRedis;
 using Volo.Abp.AspNetCore.SignalR;
+using Swashbuckle.AspNetCore.SwaggerUI;
+using Microsoft.OpenApi.Models;
+using System.IO;
+using System;
 
 namespace X.Admin.Core;
 
@@ -55,7 +59,6 @@ public partial class CoreHttpApiHostModule : AbpModule
         ConfigurationMultiTenancy();
         ConfigureCap(context);
     }
-
     public override void OnApplicationInitialization(ApplicationInitializationContext context)
     {
         var app = context.GetApplicationBuilder();
@@ -92,6 +95,8 @@ public partial class CoreHttpApiHostModule : AbpModule
         app.UseAbpSwaggerUI(options =>
         {
             options.SwaggerEndpoint("/swagger/v1/swagger.json", "Core API");
+            options.DocExpansion(DocExpansion.None);
+            options.DefaultModelsExpandDepth(-1);
         });
         app.UseAuditing();
         app.UseAbpSerilogEnrichers();

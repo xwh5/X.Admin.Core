@@ -8,6 +8,8 @@
 		<AspNetCoreHostingModel>InProcess</AspNetCoreHostingModel>
 		<RootNamespace>X.Admin.Core</RootNamespace>
 		<PreserveCompilationReferences>true</PreserveCompilationReferences>
+		<GenerateDocumentationFile>true</GenerateDocumentationFile>
+		<DocumentationFile>bin\$(Configuration)\$(TargetFramework)\X.Admin.Core.xml</DocumentationFile>
 	</PropertyGroup>
 
 	<PropertyGroup Condition=" '$(RunConfiguration)' == 'X.Admin.Core.HttpApi.Host' " />

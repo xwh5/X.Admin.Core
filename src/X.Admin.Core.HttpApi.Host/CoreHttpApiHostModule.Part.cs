@@ -25,6 +25,7 @@ using Microsoft.AspNetCore.Identity;
 using Volo.Abp.MultiTenancy;
 using X.Admin.Core.MultiTenancy;
 using X.Admin.Core.Permissions;
+using Microsoft.EntityFrameworkCore.Internal;
 
 namespace X.Admin.Core
 {
@@ -154,6 +155,11 @@ namespace X.Admin.Core
                     {
                         Name = "weihao.xia",
                         Email = "xwh7351@163.com"
+                    },
+                    License = new OpenApiLicense
+                    {
+                        Name = "MIT License",
+                        Url = new Uri("https://opensource.org/licenses/MIT")
                     }
                 });
 
@@ -168,23 +174,28 @@ namespace X.Admin.Core
                 });
 
                 options.AddSecurityRequirement(new OpenApiSecurityRequirement
-            {
                 {
-                    new OpenApiSecurityScheme
                     {
-                        Reference = new OpenApiReference
+                        new OpenApiSecurityScheme
                         {
-                            Type = ReferenceType.SecurityScheme,
-                            Id = "Bearer"
-                        }
-                    },
-                    new string[] { }
-                }
-            });
+                            Reference = new OpenApiReference
+                            {
+                                Type = ReferenceType.SecurityScheme,
+                                Id = "Bearer"
+                            }
+                        },
+                        new string[] { }
+                    }
+                });
 
                 // 添加注释文件，以便生成更清晰的 API 文档
-                var xmlFile = Path.Combine(AppContext.BaseDirectory, "X.Admin.Core.xml");
-                options.IncludeXmlComments(xmlFile);
+                var xmlPaths = Directory.GetFiles(AppContext.BaseDirectory, "*.xml");
+                foreach (var xml in xmlPaths)
+                {
+                    options.IncludeXmlComments(xml, true);
+                }
+                options.DocInclusionPredicate((docName, description) => true);
+                options.CustomSchemaIds(type => type.FullName);
             });
         }
 
